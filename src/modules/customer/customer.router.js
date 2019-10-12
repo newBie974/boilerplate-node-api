@@ -6,13 +6,13 @@ function getAll(fastify) {
   })
 }
 
-function helloName(fastify) {
-  fastify.get('/:name', (req, res) => {
-    res.send({ hello: `${req.params.name}` });
+function formatMessage(fastify, customerHandler) {
+  fastify.get('/:name', async (req, res) => {
+    return customerHandler.formatMessage(req.params.name);
   })
 }
 
 module.exports = {
   getAll,
-  helloName
+  formatMessage,
 };
