@@ -6,11 +6,10 @@ const customer = require('../modules/customer');
   try {
     const {
       customerRouter,
-      customerHandler,
     } = customer;
 
-    customerRouter.getAll(fastify, customerHandler);
-    customerRouter.formatMessage(fastify, customerHandler);
+    customerRouter.getAll(fastify);
+    customerRouter.formatMessage(fastify);
     await fastify.listen(3000);
     fastify.log.info(`server listening on ${fastify.server.address().port}`);
   } catch (err) {
