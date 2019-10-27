@@ -9,7 +9,7 @@ const customer = require('../modules/customer');
     } = customer;
 
     customerRouter.getAll(fastify);
-    customerRouter.formatMessage(fastify);
+    customerRouter.getMessage(fastify);
     await fastify.listen(3000);
     fastify.log.info(`server listening on ${fastify.server.address().port}`);
   } catch (err) {

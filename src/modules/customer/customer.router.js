@@ -3,18 +3,14 @@
 const customerHandler = require('./customer.handler');
 
 function getAll(fastify) {
-  fastify.get('/', (req, res) => {
-    res.send({ hello: 'world' });
-  })
+  fastify.get('/', customerHandler.helloWorld);
 }
 
-function formatMessage(fastify) {
-  fastify.get('/:name', async (req, res) => {
-    return customerHandler.formatMessage(req.params.name);
-  })
+function getMessage(fastify) {
+  fastify.get('/:name', customerHandler.formatMessage);
 }
 
 module.exports = {
   getAll,
-  formatMessage,
+  getMessage,
 };
