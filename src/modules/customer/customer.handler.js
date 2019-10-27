@@ -12,7 +12,7 @@ async function formatMessage(req, res) {
 }
 
 function helloWorld(req, res) {
-  response = { message: 'hello world' };
+  const response = { message: 'hello world' };
   res
     .code(200)
     .send(response);
