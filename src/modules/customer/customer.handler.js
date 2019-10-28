@@ -1,8 +1,6 @@
-'use strict';
-
 const customerService = require('./customer.service');
 
-async function formatMessage(req, res) {
+async function sendFormatMessage(req, res) {
   const { formatMessage } = customerService;
   const { name } = req.params;
   const message = await formatMessage(name);
@@ -19,6 +17,6 @@ function helloWorld(req, res) {
 }
 
 module.exports = {
-  formatMessage,
+  sendFormatMessage,
   helloWorld,
-}
+};

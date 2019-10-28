@@ -1,5 +1,3 @@
-'use strict';
-
 const customerHandler = require('./customer.handler');
 
 function getAll(fastify) {
@@ -7,7 +5,7 @@ function getAll(fastify) {
 }
 
 function getMessage(fastify) {
-  fastify.get('/:name', customerHandler.formatMessage);
+  fastify.get('/:name', customerHandler.sendFormatMessage);
 }
 
 module.exports = {
