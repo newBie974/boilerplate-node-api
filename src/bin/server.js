@@ -3,7 +3,7 @@ const helmet = require('fastify-helmet');
 
 const customer = require('../modules/customer');
 
- async function start(){
+async function server() {
   try {
     const {
       customerRouter,
@@ -19,6 +19,8 @@ const customer = require('../modules/customer');
     fastify.log.error(err);
     process.exit();
   }
-};
+}
 
-start();
+module.exports = {
+  server,
+};
