@@ -1,14 +1,18 @@
-const customerHandler = require('./customer.handler');
-
-function getAll(fastify) {
-  fastify.get('/', customerHandler.helloWorld);
+function CustomerRouter(fastify, customerHandler) {
+  this.fastify = fastify;
+  this.customerHandler = customerHandler;
 }
 
-function getMessage(fastify) {
-  fastify.get('/:name', customerHandler.sendFormatMessage);
-}
-
-module.exports = {
-  getAll,
-  getMessage,
+CustomerRouter.prototype.getAll = function getAll() {
+  this.fastify.get('/', this.customerHandler.helloWorld);
 };
+
+CustomerRouter.prototype.getMessage = function getMessage() {
+  console.log(this.customerHandler.customerService.formatMessage());
+  this.fastify.get('/:name', this.customerHandler.sendFormatMessage);
+};
+
+function factoryCustomerRouter(options, customerHandler) {
+  return new CustomerRouter(options, customerHandler);
+}
+module.exports = factoryCustomerRouter;

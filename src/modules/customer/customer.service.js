@@ -1,8 +1,14 @@
-function formatMessage(name) {
-  const message = `Hello ${name}`;
-  return { message };
+function CustomerService(options) {
+  this.options = options;
 }
 
-module.exports = {
-  formatMessage,
+CustomerService.prototype.formatMessage = function formatMessage(name) {
+  const message = `Hello ${name}`;
+  return { message };
 };
+
+function factoryCustomerService(options = {}) {
+  return new CustomerService(options);
+}
+
+module.exports = factoryCustomerService;
