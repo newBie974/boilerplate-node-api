@@ -9,7 +9,7 @@ CustomerRouter.prototype.getAll = function getAll() {
 
 CustomerRouter.prototype.getMessage = function getMessage() {
   console.log(this.customerHandler.customerService.formatMessage());
-  this.fastify.get('/:name', this.customerHandler.sendFormatMessage);
+  this.fastify.get('/:name', this.customerHandler.sendFormatMessage.bind(this.customerHandler));
 };
 
 function factoryCustomerRouter(options, customerHandler) {
