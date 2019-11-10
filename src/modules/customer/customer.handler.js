@@ -1,16 +1,22 @@
 function customerHandler(service) {
-  function helloWorld(req, reply) {
-    const response = { message: 'hello world' };
-    reply
-      .code(200)
-      .send(response);
-  }
   async function sendFormatMessage(req, reply) {
     const { name } = req.params;
     const message = await service.formatMessage(name);
     reply
       .code(200)
       .send(message);
+  }
+
+  async function getAll(req, reply) {
+    const userData = await service.getAll();
+    if (!userData) {
+      reply
+        .code(404)
+        .send('[CUSTOMER] nothing in databases');
+    }
+    reply
+      .code(200)
+      .send(userData);
   }
 
   async function getById(req, reply) {
@@ -44,7 +50,7 @@ function customerHandler(service) {
   }
 
   return {
-    helloWorld,
+    getAll,
     sendFormatMessage,
     getById,
     create,

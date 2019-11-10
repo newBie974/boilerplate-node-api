@@ -1,7 +1,13 @@
 function customerRepository(database) {
+  function getAll() {
+    return database.query(
+      'SELECT id, nickname, email, firstname, lastname FROM customer',
+    ).then((res) => res.rows);
+  }
+
   function getCustomerById(id) {
     return database.query(
-      'SELECT id, nickname, email, firstname, lastname FROM customer WHERE id=$1::integer',
+      'SELECT id, nickname, email, firstname, lastname FROM customer WHERE id=$1::integer LIMIT 1',
       [id],
     ).then((res) => res.rows[0]);
   }
@@ -47,6 +53,7 @@ function customerRepository(database) {
     return result;
   }
   return {
+    getAll,
     getCustomerById,
     create,
     update,

@@ -1,6 +1,6 @@
 function customerRouter(fastify, customerHandler) {
   function getAll() {
-    fastify.get('/customer/', customerHandler.helloWorld);
+    fastify.get('/customer/', customerHandler.getAll);
   }
   function getMessage() {
     // fastify.get('/:name', customerHandler.sendFormatMessage);

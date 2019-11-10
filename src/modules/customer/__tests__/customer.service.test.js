@@ -2,6 +2,13 @@ const service = require('../customer.service');
 
 describe('Customer Service', () => {
   const mockRepository = {
+    getAll: jest.fn(() => ([{
+      id: 1,
+      firstname: 'Doe',
+      lastname: 'John',
+      nickname: 'Nickname',
+      email: 'john@doe.com',
+    }])),
     getCustomerById: jest.fn((id) => ({
       id,
       firstname: 'Doe',
@@ -45,6 +52,20 @@ describe('Customer Service', () => {
       nickname: 'Nickname',
       email: 'john@doe.com',
     });
+  });
+
+  test('should getAll customer', async () => {
+    const users = await customerService.getAll();
+    expect(mockRepository.getAll).toHaveBeenCalledTimes(1);
+    expect(users).toMatchObject(
+      [{
+        id: 1,
+        firstname: 'Doe',
+        lastname: 'John',
+        nickname: 'Nickname',
+        email: 'john@doe.com',
+      }],
+    );
   });
 
   test('should create a customer', async () => {

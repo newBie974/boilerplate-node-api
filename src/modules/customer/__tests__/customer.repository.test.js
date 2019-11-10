@@ -46,4 +46,15 @@ describe('Customer Repository', () => {
       email: 'jane@doe.com',
     });
   });
+
+  test('Select a user by id 1', async () => {
+    const users = await customerRepository.getAll();
+    expect(users).toMatchObject([{
+      id: 1,
+      firstname: 'John',
+      lastname: 'Doe',
+      nickname: 'Nickname',
+      email: 'john@doe.com',
+    }]);
+  });
 });

@@ -4,8 +4,8 @@ function customerService(repository) {
     return { message };
   }
   async function getById(id) {
-    const users = await repository.getCustomerById(id);
-    return users;
+    const user = await repository.getCustomerById(id);
+    return user;
   }
 
   async function create(body) {
@@ -17,11 +17,17 @@ function customerService(repository) {
     const user = await repository.update(id, body);
     return user;
   }
+
+  async function getAll() {
+    const users = await repository.getAll();
+    return users;
+  }
   return {
     formatMessage,
     getById,
     create,
     update,
+    getAll,
   };
 }
 

@@ -25,6 +25,13 @@ describe('Customer Handler', () => {
       nickname: payload.nickname,
       email: payload.email,
     })),
+    getAll: jest.fn(() => [{
+      id: 1,
+      firstname: 'Doe',
+      lastname: 'John',
+      nickname: 'Nickname',
+      email: 'john@doe.com',
+    }]),
   };
   const customerHandler = handler(mockServices);
   const replyMock = {
@@ -34,9 +41,25 @@ describe('Customer Handler', () => {
 
   test('return 200: should get all', async () => {
     const req = {};
-    customerHandler.helloWorld(req, replyMock);
-    expect(replyMock.send).toHaveBeenCalledWith({ message: 'hello world' });
+    await customerHandler.getAll(req, replyMock);
+    expect(mockServices.getAll).toHaveBeenCalledTimes(1);
+    expect(replyMock.send).toHaveBeenCalledWith([{
+      id: 1,
+      firstname: 'Doe',
+      lastname: 'John',
+      nickname: 'Nickname',
+      email: 'john@doe.com',
+    }]);
     expect(replyMock.code).toHaveBeenCalledWith(200);
+  });
+
+  test('return 404: should get all', async () => {
+    const req = {};
+    mockServices.getAll = jest.fn(() => undefined);
+    await customerHandler.getAll(req, replyMock);
+    expect(mockServices.getAll).toHaveBeenCalledTimes(1);
+    expect(replyMock.send).toHaveBeenCalledWith('[CUSTOMER] nothing in databases');
+    expect(replyMock.code).toHaveBeenCalledWith(404);
   });
 
   test('return 200: should get with params :name', async () => {
