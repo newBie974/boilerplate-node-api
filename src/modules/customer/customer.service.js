@@ -1,8 +1,11 @@
-function formatMessage(name) {
-  const message = `Hello ${name}`;
-  return { message };
+function customerService() {
+  function formatMessage(name) {
+    const message = `Hello ${name}`;
+    return { message };
+  }
+  return {
+    formatMessage,
+  };
 }
 
-module.exports = {
-  formatMessage,
-};
+module.exports = customerService;
