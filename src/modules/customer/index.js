@@ -3,9 +3,9 @@ const customerService = require('./customer.service');
 const customerHandler = require('./customer.handler');
 const customerRouter = require('./customer.router');
 
-function launch(router) {
-  router.getAll();
-  router.getMessage();
+function launch(routers) {
+  routers.getAll();
+  routers.getMessage();
 }
 
 function initModuleCustomer({ fastify }) {

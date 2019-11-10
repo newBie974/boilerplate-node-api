@@ -1,18 +1,15 @@
-function CustomerRouter(fastify, customerHandler) {
-  this.fastify = fastify;
-  this.customerHandler = customerHandler;
+function customerRouter(fastify, customerHandler) {
+  function getAll() {
+    fastify.get('/', customerHandler.helloWorld);
+  }
+  function getMessage() {
+    fastify.get('/:name', customerHandler.sendFormatMessage);
+  }
+
+  return {
+    getAll,
+    getMessage,
+  };
 }
 
-CustomerRouter.prototype.getAll = function getAll() {
-  this.fastify.get('/', this.customerHandler.helloWorld);
-};
-
-CustomerRouter.prototype.getMessage = function getMessage() {
-  console.log(this.customerHandler.customerService.formatMessage());
-  this.fastify.get('/:name', this.customerHandler.sendFormatMessage.bind(this.customerHandler));
-};
-
-function factoryCustomerRouter(options, customerHandler) {
-  return new CustomerRouter(options, customerHandler);
-}
-module.exports = factoryCustomerRouter;
+module.exports = customerRouter;
