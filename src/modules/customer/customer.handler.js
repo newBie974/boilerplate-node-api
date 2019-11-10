@@ -13,9 +13,18 @@ function customerHandler(service) {
       .send(message);
   }
 
+  async function getById(req, reply) {
+    const { id } = req.params;
+    const userData = await service.getById(id);
+    reply
+      .code(200)
+      .send(userData);
+  }
+
   return {
     helloWorld,
     sendFormatMessage,
+    getById,
   };
 }
 
