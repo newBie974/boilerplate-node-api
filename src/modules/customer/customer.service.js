@@ -12,10 +12,16 @@ function customerService(repository) {
     const user = await repository.create(body);
     return user;
   }
+
+  async function update(id, body) {
+    const user = await repository.update(id, body);
+    return user;
+  }
   return {
     formatMessage,
     getById,
     create,
+    update,
   };
 }
 

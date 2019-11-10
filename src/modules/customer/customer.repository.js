@@ -24,9 +24,32 @@ function customerRepository(database) {
 
     return result;
   }
+
+  async function update(id, payload) {
+    const {
+      firstname,
+      lastname,
+      nickname,
+      email,
+    } = payload;
+
+    const result = await database.query(`
+      UPDATE customer SET 
+        firstname = $2,
+        lastname = $3,
+        email = $4,
+        nickname = $5
+      WHERE id = $1
+      RETURNING id, firstname, lastname, email, nickname
+    `, [id, firstname, lastname, email, nickname])
+      .then((res) => res.rows[0]);
+
+    return result;
+  }
   return {
     getCustomerById,
     create,
+    update,
   };
 }
 

@@ -14,11 +14,16 @@ function customerRouter(fastify, customerHandler) {
     fastify.post('/', customerHandler.create);
   }
 
+  function update() {
+    fastify.put('/:id', customerHandler.update);
+  }
+
   return {
     create,
     getAll,
     getMessage,
     getById,
+    update,
   };
 }
 

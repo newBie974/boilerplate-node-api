@@ -34,11 +34,21 @@ function customerHandler(service) {
       .send(createdUser);
   }
 
+  async function update(req, reply) {
+    const { body } = req;
+    const { id } = req.params;
+    const updatedUser = await service.update(id, body);
+    reply
+      .code(200)
+      .send(updatedUser);
+  }
+
   return {
     helloWorld,
     sendFormatMessage,
     getById,
     create,
+    update,
   };
 }
 

@@ -29,4 +29,21 @@ describe('Customer Repository', () => {
       email: 'jane@doe.com',
     });
   });
+
+  test('Update a user with payload', async () => {
+    const payload = {
+      firstname: 'Janette',
+      lastname: 'Doe',
+      nickname: 'Nickname Todo',
+      email: 'jane@doe.com',
+    };
+    const user = await customerRepository.update(1, payload);
+    expect(user).toMatchObject({
+      id: 1,
+      firstname: 'Janette',
+      lastname: 'Doe',
+      nickname: 'Nickname Todo',
+      email: 'jane@doe.com',
+    });
+  });
 });
