@@ -1,21 +1,21 @@
 function customerRouter(fastify, customerHandler) {
   function getAll() {
-    fastify.get('/', customerHandler.helloWorld);
+    fastify.get('/customer/', customerHandler.helloWorld);
   }
   function getMessage() {
     // fastify.get('/:name', customerHandler.sendFormatMessage);
   }
 
   function getById() {
-    fastify.get('/:id', customerHandler.getById);
+    fastify.get('/customer/:id', customerHandler.getById);
   }
 
   function create() {
-    fastify.post('/', customerHandler.create);
+    fastify.post('/customer/', customerHandler.create);
   }
 
   function update() {
-    fastify.put('/:id', customerHandler.update);
+    fastify.put('/customer/:id', customerHandler.update);
   }
 
   return {

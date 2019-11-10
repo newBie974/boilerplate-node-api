@@ -8,6 +8,7 @@ function launch(routers) {
   routers.getMessage();
   routers.getById();
   routers.create();
+  routers.update();
 }
 
 function initModuleCustomer({ fastify, database }) {
