@@ -4,12 +4,14 @@
   "main": "src/bin/server.js",
   "scripts": {
     "start": "nodemon src/index.js",
-    "test": "jest"
+    "start:dev": "NODE_ENV=dev nodemon src/index.js",
+    "test": "NODE_ENV=test jest --passWithNoTests --runInBand"
   },
   "dependencies": {
     "dotenv-flow": "^3.1.0",
     "fastify": "^2.10.0",
-    "fastify-helmet": "^3.0.2"
+    "fastify-helmet": "^3.0.2",
+    "pg": "^7.12.1"
   },
   "devDependencies": {
     "eslint": "^6.6.0",

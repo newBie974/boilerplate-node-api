@@ -3,12 +3,15 @@ function customerRouter(fastify, customerHandler) {
     fastify.get('/', customerHandler.helloWorld);
   }
   function getMessage() {
-    fastify.get('/:name', customerHandler.sendFormatMessage);
+    // fastify.get('/:name', customerHandler.sendFormatMessage);
   }
-
+  function getById() {
+    fastify.get('/:id', customerHandler.getById);
+  }
   return {
     getAll,
     getMessage,
+    getById,
   };
 }
 
