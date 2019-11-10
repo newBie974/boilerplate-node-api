@@ -11,6 +11,13 @@ describe('customerHandler', () => {
       nickname: 'Nickname',
       email: 'john@doe.com',
     })),
+    create: jest.fn((payload) => ({
+      id: 1,
+      firstname: payload.firstname,
+      lastname: payload.lastname,
+      nickname: payload.nickname,
+      email: payload.email,
+    })),
   };
   const customerHandler = handler(mockServices);
   const replyMock = {
@@ -50,6 +57,38 @@ describe('customerHandler', () => {
       lastname: 'John',
       nickname: 'Nickname',
       email: 'john@doe.com',
+    });
+  });
+
+  test('return 404: shouldnt get with params :id', async () => {
+    const req = {
+      params: {
+        id: 999,
+      },
+    };
+    mockServices.getById = jest.fn(() => undefined);
+    await customerHandler.getById(req, replyMock);
+    expect(replyMock.code).toHaveBeenCalledWith(404);
+    expect(replyMock.send).toHaveBeenCalledWith('[CUSTOMER] couldnt find by id');
+  });
+
+  test('return 201: should created customer', async () => {
+    const req = {
+      body: {
+        firstname: 'John',
+        lastname: 'Doe',
+        nickname: 'JohnDoe123',
+        email: 'john@doe.gmail.com',
+      },
+    };
+    await customerHandler.create(req, replyMock);
+    expect(replyMock.code).toHaveBeenCalledWith(201);
+    expect(replyMock.send).toHaveBeenCalledWith({
+      id: 1,
+      firstname: 'John',
+      lastname: 'Doe',
+      nickname: 'JohnDoe123',
+      email: 'john@doe.gmail.com',
     });
   });
 });

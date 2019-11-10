@@ -9,6 +9,13 @@ describe('customer service', () => {
       nickname: 'Nickname',
       email: 'john@doe.com',
     })),
+    create: jest.fn(() => ({
+      id: 1,
+      firstname: 'Doe',
+      lastname: 'John',
+      nickname: 'Nickname',
+      email: 'john@doe.com',
+    })),
   };
   const customerService = service(mockRepository);
 
@@ -26,6 +33,24 @@ describe('customer service', () => {
     expect(mockRepository.getCustomerById).toHaveBeenCalledWith(1);
     expect(user).toMatchObject({
       id,
+      firstname: 'Doe',
+      lastname: 'John',
+      nickname: 'Nickname',
+      email: 'john@doe.com',
+    });
+  });
+
+  test('should create a customer', async () => {
+    const payload = {
+      firstname: 'Doe',
+      lastname: 'John',
+      nickname: 'Nickname',
+      email: 'john@doe.com',
+    };
+    const user = await customerService.create(payload);
+    expect(mockRepository.create).toHaveBeenCalledTimes(1);
+    expect(user).toMatchObject({
+      id: 1,
       firstname: 'Doe',
       lastname: 'John',
       nickname: 'Nickname',

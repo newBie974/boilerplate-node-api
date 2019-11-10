@@ -7,9 +7,15 @@ function customerService(repository) {
     const users = await repository.getCustomerById(id);
     return users;
   }
+
+  async function create(body) {
+    const user = await repository.create(body);
+    return user;
+  }
   return {
     formatMessage,
     getById,
+    create,
   };
 }
 
