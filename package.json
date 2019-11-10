@@ -4,6 +4,7 @@
   "main": "src/bin/server.js",
   "scripts": {
     "start": "nodemon src/index.js",
+    "start:dev": "NODE_ENV=dev nodemon src/index.js",
     "test": "NODE_ENV=test jest --passWithNoTests --runInBand"
   },
   "dependencies": {

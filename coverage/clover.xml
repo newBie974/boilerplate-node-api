@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1573400108587" clover="3.2.0">
-  <project timestamp="1573400108587" name="All files">
-    <metrics statements="38" coveredstatements="20" conditionals="0" coveredconditionals="0" methods="16" coveredmethods="10" elements="54" coveredelements="30" complexity="0" loc="38" ncloc="38" packages="1" files="5" classes="5"/>
+<coverage generated="1573400260540" clover="3.2.0">
+  <project timestamp="1573400260540" name="All files">
+    <metrics statements="37" coveredstatements="20" conditionals="0" coveredconditionals="0" methods="16" coveredmethods="10" elements="53" coveredelements="30" complexity="0" loc="37" ncloc="37" packages="1" files="5" classes="5"/>
     <file name="customer.handler.js" path="/Users/aymeric/Documents/Aymeric/boilerplate-node-api/src/modules/customer/customer.handler.js">
       <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
       <line num="3" count="1" type="stmt"/>
@@ -23,9 +23,8 @@
       <line num="13" count="1" type="stmt"/>
     </file>
     <file name="customer.router.js" path="/Users/aymeric/Documents/Aymeric/boilerplate-node-api/src/modules/customer/customer.router.js">
-      <metrics statements="5" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
+      <metrics statements="4" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
       <line num="3" count="0" type="stmt"/>
-      <line num="6" count="0" type="stmt"/>
       <line num="9" count="0" type="stmt"/>
       <line num="11" count="0" type="stmt"/>
       <line num="18" count="0" type="stmt"/>

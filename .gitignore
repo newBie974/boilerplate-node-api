@@ -1,6 +1,10 @@
 # Dependency directories
 node_modules/
+coverage
 
 # MacOS
 .DS_Store
 node_modules
+
+# Files
+.env.dev
