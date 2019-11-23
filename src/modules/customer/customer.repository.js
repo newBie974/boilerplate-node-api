@@ -41,10 +41,10 @@ function customerRepository(database) {
 
     const result = await database.query(`
       UPDATE customer SET 
-        firstname = $2,
-        lastname = $3,
-        email = $4,
-        nickname = $5
+        firstname = COALESCE($2, firstname),
+        lastname = COALESCE($3, lastname),
+        email = COALESCE($4, email),
+        nickname = COALESCE($5, nickname)
       WHERE id = $1
       RETURNING id, firstname, lastname, email, nickname
     `, [id, firstname, lastname, email, nickname])
