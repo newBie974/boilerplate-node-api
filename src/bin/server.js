@@ -11,10 +11,12 @@ const { initModuleAuth } = require('../modules/auth');
 
 async function server() {
   try {
+    const { authConfig } = config;
     initModuleCustomer({ fastify, database });
     initModuleAuth({
       fastify,
       database,
+      authConfig,
       jwt,
       bcrypt,
     });
