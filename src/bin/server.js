@@ -1,16 +1,23 @@
 const fastify = require('fastify')({ logger: true });
 const helmet = require('fastify-helmet');
 const cors = require('fastify-cors');
-
-const db = require('../database');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const database = require('../database');
 const config = require('../config');
 
 const { initModuleCustomer } = require('../modules/customer');
+const { initModuleAuth } = require('../modules/auth');
 
 async function server() {
   try {
-    initModuleCustomer({ fastify, database: db });
-
+    initModuleCustomer({ fastify, database });
+    initModuleAuth({
+      fastify,
+      database,
+      jwt,
+      bcrypt,
+    });
     fastify.register(helmet);
     fastify.register(cors, {
       origin: 'http://localhost:8081',
