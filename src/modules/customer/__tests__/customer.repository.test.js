@@ -47,7 +47,7 @@ describe('Customer Repository', () => {
     });
   });
 
-  test('Select a user by id 1', async () => {
+  test('Select all user', async () => {
     const users = await customerRepository.getAll();
     expect(users).toMatchObject([{
       id: 1,
