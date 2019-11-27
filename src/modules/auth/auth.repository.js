@@ -5,7 +5,7 @@ function authRepository(database) {
       VALUES ($1, $2, NOW(), NOW())
       ON CONFLICT (customer_id) DO UPDATE
       SET password = $3, updated_at = NOW()
-    `, [id, password, password]);
+    `, [id, password, password]).then((res) => res.rowCount);
   }
   return {
     upsertCredentials,
