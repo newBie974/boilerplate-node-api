@@ -1,7 +1,7 @@
-const authRepository = require('./auth.repository');
-const authService = require('./auth.service');
-const authHandler = require('./auth.handler');
-const authRouter = require('./auth.router');
+const authRepository = require('./repository');
+const authService = require('./service');
+const authHandler = require('./handler');
+const authRouter = require('./router');
 
 function launch(routers) {
   routers.upsertCredentials();

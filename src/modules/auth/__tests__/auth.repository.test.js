@@ -1,5 +1,5 @@
 const database = require('../../../database');
-const authRepository = require('../auth.repository')(database);
+const authRepository = require('../repository')(database);
 
 describe('Auth Repository', () => {
   const id = 1;

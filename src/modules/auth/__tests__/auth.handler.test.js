@@ -1,4 +1,4 @@
-const handler = require('../auth.handler');
+const handler = require('../handler');
 
 describe('Auth Handler', () => {
   const mockServices = {

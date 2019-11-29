@@ -1,4 +1,4 @@
-const authRepository = jest.genMockFromModule('../auth.repository');
+const authRepository = jest.genMockFromModule('../repository');
 
 module.exports = {
   authRepository,
