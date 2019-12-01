@@ -19,6 +19,9 @@ const config = {
     max: env('POSTGRES_POOL_SIZE'),
     idleTimeoutMillis: env('POSTGRES_IDLETIMEOUTMILLIS'),
   },
+  auth: {
+    saltRounds: env('SALT_ROUNDS'),
+  },
 };
 
 module.exports = config;
