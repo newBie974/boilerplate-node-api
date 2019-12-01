@@ -21,4 +21,11 @@ describe('Auth Repository', () => {
       .then((res) => res.rows[0]);
     expect(user.password).toBe(newPassword);
   });
+
+  test('should get crentedentials', async () => {
+    await authRepository.upsertCredentials(id, password);
+    const credentials = await authRepository.getCredentials(id);
+    expect(credentials.customerId).toBe(id);
+    expect(credentials.password).toBe(password);
+  });
 });

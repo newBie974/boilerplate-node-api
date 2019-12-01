@@ -6,9 +6,11 @@ describe('Auth Service', () => {
 
   const mockRepository = {
     upsertCredentials: jest.fn(() => 1),
+    authentification: jest.fn(() => true),
   };
   const mockBCrypt = {
     hash: jest.fn(() => 'hashedPassword'),
+    compare: jest.fn(() => true),
   };
   const mockConfig = {};
   const mockJwt = {};
@@ -20,5 +22,30 @@ describe('Auth Service', () => {
     expect(mockBCrypt.hash).toHaveBeenCalledTimes(1);
     expect(mockRepository.upsertCredentials).toHaveBeenCalledTimes(1);
     expect(upsertCredentials).toBe(1);
+  });
+
+  test('should authentificate', async () => {
+    const authentificate = await authService.authentification(id, password);
+    expect(authentificate).toBe(true);
+    expect(mockRepository.authentification).toHaveBeenCalledTimes(1);
+    expect(mockBCrypt.compare).toHaveBeenCalledTimes(1);
+  });
+
+  test('should authentificate and failed authentificate on credentials', async () => {
+    mockRepository.authentification = jest.fn(() => false);
+    mockBCrypt.compare = jest.fn(() => true);
+    const authentificate = await authService.authentification(id, password);
+    expect(authentificate).toBe(false);
+    expect(mockRepository.authentification).toHaveBeenCalledTimes(1);
+    expect(mockBCrypt.compare).toHaveBeenCalledTimes(0);
+  });
+
+  test('should authentificate and failed authentificate on password', async () => {
+    mockRepository.authentification = jest.fn(() => true);
+    mockBCrypt.compare = jest.fn(() => false);
+    const authentificate = await authService.authentification(id, password);
+    expect(authentificate).toBe(false);
+    expect(mockRepository.authentification).toHaveBeenCalledTimes(1);
+    expect(mockBCrypt.compare).toHaveBeenCalledTimes(1);
   });
 });

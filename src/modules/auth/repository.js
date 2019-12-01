@@ -10,7 +10,7 @@ function authRepository(database) {
 
   function getCredentials(id) {
     return database.query(`
-      SELECT customer_id AS "customerId", password
+      SELECT customer_id::integer AS "customerId", password
       FROM credentials
       WHERE customer_id = $1
       LIMIT 1

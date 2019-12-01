@@ -9,7 +9,12 @@ function authHandler(service) {
   async function authentification(req, reply) {
     const { customerId, password } = req.body;
     const credentials = await service.authentification(customerId, password);
-    // TODO
+    if (!credentials) {
+      reply
+        .code(401);
+    }
+    reply
+      .code(200);
   }
   return {
     upsertCredentials,
