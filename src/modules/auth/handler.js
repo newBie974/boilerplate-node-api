@@ -6,8 +6,14 @@ function authHandler(service) {
       .code(200)
       .send(upsertResult);
   }
+  async function authentification(req, reply) {
+    const { customerId, password } = req.body;
+    const credentials = await service.authentification(customerId, password);
+    // TODO
+  }
   return {
     upsertCredentials,
+    authentification,
   };
 }
 

@@ -4,6 +4,17 @@ function authService(repository, authConfig, jwt, bcrypt) {
     const upsertedData = await repository.upsertCredentials(id, hashedPassword);
     return upsertedData;
   }
+  async function authentification(id, password) {
+    const credentials = await repository.authentification(id);
+    if (!credentials) {
+      return null;
+    }
+    const isSamePassword = await bcrypt.compare(password, credentials.password);
+    if (!isSamePassword) {
+      return null;
+    }
+    
+  }
   return {
     upsertCredentials,
   };

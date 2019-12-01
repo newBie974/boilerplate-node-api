@@ -7,8 +7,18 @@ function authRepository(database) {
       SET password = $3, updated_at = NOW()
     `, [id, password, password]).then((res) => res.rowCount);
   }
+
+  function getCredentials(id) {
+    return database.query(`
+      SELECT customer_id AS "customerId", password
+      FROM credentials
+      WHERE customer_id = $1
+      LIMIT 1
+    `, [id]).then((res) => res.rows[0]);
+  }
   return {
     upsertCredentials,
+    getCredentials,
   };
 }
 

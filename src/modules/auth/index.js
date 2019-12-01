@@ -14,6 +14,9 @@ function initModuleAuth({
   jwt,
   bcrypt,
 }) {
+  if (!fastify || !database || !authConfig || !bcrypt) {
+    throw new Error('Missing config file');
+  }
   const repository = authRepository(database);
   const services = authService(repository, authConfig, jwt, bcrypt);
   const handlers = authHandler(services);
