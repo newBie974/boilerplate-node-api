@@ -1,9 +1,9 @@
 function authRouter(fastify, authHandler) {
   function upsertCredentials() {
-    fastify.post('/', authHandler.upsertCredentials);
+    fastify.post('/auth/', authHandler.upsertCredentials);
   }
   function authentification() {
-    fastify.post('/token', authHandler.authentification);
+    fastify.post('/auth/token', authHandler.authentification);
   }
   return {
     upsertCredentials,

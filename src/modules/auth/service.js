@@ -1,6 +1,6 @@
-function authService(repository, authConfig, jwt, bcrypt) {
+function authService(repository, auth, jwt, bcrypt) {
   async function upsertCredentials(id, password) {
-    const hashedPassword = await bcrypt.hash(password, authConfig.saltRounds);
+    const hashedPassword = await bcrypt.hash(password, auth.saltRounds);
     const upsertedData = await repository.upsertCredentials(id, hashedPassword);
     return upsertedData;
   }

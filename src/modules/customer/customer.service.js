@@ -1,4 +1,4 @@
-function customerService(repository) {
+function customerService(repository, authClient) {
   function formatMessage(name) {
     const message = `Hello ${name}`;
     return { message };
@@ -9,7 +9,10 @@ function customerService(repository) {
   }
 
   async function create(body) {
+    const { password } = body;
     const user = await repository.create(body);
+    const authentification = await authClient.upsertCredentials(user.id, password);
+    console.log('Authentification ', authentification);
     return user;
   }
 

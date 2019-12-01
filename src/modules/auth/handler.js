@@ -8,6 +8,8 @@ function authHandler(service) {
   }
   async function authentification(req, reply) {
     const { customerId, password } = req.body;
+    console.log('la dedans', customerId, password);
+    process.exit();
     const credentials = await service.authentification(customerId, password);
     if (!credentials) {
       reply
