@@ -1,15 +1,13 @@
 function authHandler(service) {
   async function upsertCredentials(req, reply) {
-    const { id, password } = req.body;
-    const upsertResult = await service.upsertCredentials(id, password);
+    const { customerId, password } = req.body;
+    const upsertedCredentials = await service.upsertCredentials(customerId, password);
     reply
       .code(200)
-      .send(upsertResult);
+      .send(upsertedCredentials);
   }
   async function authentification(req, reply) {
     const { customerId, password } = req.body;
-    console.log('la dedans', customerId, password);
-    process.exit();
     const credentials = await service.authentification(customerId, password);
     if (!credentials) {
       reply

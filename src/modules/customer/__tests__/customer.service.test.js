@@ -31,7 +31,11 @@ describe('Customer Service', () => {
       email: 'john@doe.com',
     })),
   };
-  const customerService = service(mockRepository);
+
+  const mockAuthClient = {
+    upsertCredentials: jest.fn(() => true),
+  };
+  const customerService = service(mockRepository, mockAuthClient);
 
   test('should return hello John', () => {
     const messageToFormat = 'John';
@@ -77,6 +81,7 @@ describe('Customer Service', () => {
     };
     const user = await customerService.create(payload);
     expect(mockRepository.create).toHaveBeenCalledTimes(1);
+    expect(mockAuthClient.upsertCredentials).toHaveBeenCalledTimes(1);
     expect(user).toMatchObject({
       id: 1,
       firstname: 'Doe',

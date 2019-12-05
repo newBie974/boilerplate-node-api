@@ -4,7 +4,7 @@
 DROP TABLE IF EXISTS customer;
 
 CREATE TABLE "customer" (
-  id SERIAL UNIQUE PRIMARY KEY,
+  id bigint  PRIMARY KEY NOT NULL,
   nickname varchar(254) NOT NULL,
   email varchar(100) NOT NULL,
   firstname varchar(100) NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE "customer" (
 DROP TABLE IF EXISTS credentials;
 
 CREATE TABLE "credentials" (
-  customer_id bigint PRIMARY KEY,
+  customer_id bigint PRIMARY KEY NOT NULL,
   password varchar(254) NOT NULL,
   created_at varchar(100) NOT NULL,
   updated_at varchar(100) NOT NULL

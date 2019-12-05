@@ -9,10 +9,22 @@ function customerService(repository, authClient) {
   }
 
   async function create(body) {
-    const { password } = body;
-    const user = await repository.create(body);
+    const id = Date.now();
+    const {
+      password,
+      firstname,
+      lastname,
+      email,
+      nickname,
+    } = body;
+    const user = await repository.create({
+      id,
+      firstname,
+      lastname,
+      email,
+      nickname,
+    });
     const authentification = await authClient.upsertCredentials(user.id, password);
-    console.log('Authentification ', authentification);
     return user;
   }
 

@@ -4,12 +4,12 @@ function AuthClient(superagent, clients) {
     base,
     port,
   } = clients;
-  async function upsertCredentials(id, password) {
+  async function upsertCredentials(customerId, password) {
     try {
       await superagent
         .post(`${base}://${hostname}:${port}/auth/`)
         .send({
-          id,
+          customerId,
           password,
         });
       return true;
@@ -18,12 +18,12 @@ function AuthClient(superagent, clients) {
     }
   }
 
-  async function authentification(id, password) {
+  async function authentification(customerId, password) {
     try {
       const authentificationResult = await superagent
         .post('/auth/token')
         .send({
-          id,
+          customerId,
           password,
         });
       return authentificationResult;

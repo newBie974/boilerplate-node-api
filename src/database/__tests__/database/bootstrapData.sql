@@ -6,7 +6,7 @@ RESTART IDENTITY;
 
 -- Customer -----------------------------------
 
-INSERT INTO customer(firstname, lastname, nickname, email)
-VALUES ('John', 'Doe', 'Nickname', 'john@doe.com');
+INSERT INTO customer(id, firstname, lastname, nickname, email)
+VALUES (1, 'John', 'Doe', 'Nickname', 'john@doe.com');
 
 -----------------------------------------------
