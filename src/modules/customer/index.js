@@ -9,6 +9,7 @@ function launch(routers) {
   routers.getById();
   routers.create();
   routers.update();
+  routers.login();
 }
 
 function initModuleCustomer({ fastify, database, authClient }) {

@@ -58,4 +58,19 @@ describe('Customer Repository', () => {
       email: 'john@doe.com',
     }]);
   });
+
+  test('Get customer by email', async () => {
+    const payload = {
+      id: '2',
+      firstname: 'Jane',
+      lastname: 'Doe',
+      nickname: 'Nickname 1',
+      email: 'jane@doe.com',
+      password: 'password',
+    };
+    const email = 'jane@doe.com';
+    await customerRepository.create(payload);
+    const user = await customerRepository.getCustomerByEmail(email);
+    expect(user.email).toBe(email);
+  });
 });

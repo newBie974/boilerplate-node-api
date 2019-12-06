@@ -1,4 +1,3 @@
-
 const handler = require('../customer.handler');
 
 describe('Customer Handler', () => {
@@ -32,6 +31,7 @@ describe('Customer Handler', () => {
       nickname: 'Nickname',
       email: 'john@doe.com',
     }]),
+    login: jest.fn(() => true),
   };
   const customerHandler = handler(mockServices);
   const replyMock = {
@@ -144,5 +144,31 @@ describe('Customer Handler', () => {
       nickname: 'JohnDoe123',
       email: 'john@doe.gmail.com',
     });
+  });
+
+  test('return 200: should login', async () => {
+    const req = {
+      body: {
+        email: 'john.doe@gmail.com',
+        password: 'password',
+      },
+    };
+    await customerHandler.login(req, replyMock);
+    expect(mockServices.login).toHaveBeenCalledTimes(1);
+    expect(replyMock.code).toHaveBeenCalledWith(200);
+    // missing expect replyMock.send
+  });
+
+  test('return 404: shouldnt login', async () => {
+    mockServices.login = jest.fn(() => false);
+    const req = {
+      body: {
+        email: 'john.doe@gmail.com',
+        password: 'password',
+      },
+    };
+    await customerHandler.login(req, replyMock);
+    expect(mockServices.login).toHaveBeenCalledTimes(1);
+    expect(replyMock.code).toHaveBeenCalledWith(404);
   });
 });

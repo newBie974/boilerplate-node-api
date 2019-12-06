@@ -53,11 +53,19 @@ function customerRepository(database) {
 
     return result;
   }
+
+  async function getCustomerByEmail(email) {
+    return database.query(
+      'SELECT id, nickname, email, firstname, lastname FROM customer WHERE email=$1 LIMIT 1',
+      [email],
+    ).then((res) => res.rows[0]);
+  }
   return {
     getAll,
     getCustomerById,
     create,
     update,
+    getCustomerByEmail,
   };
 }
 

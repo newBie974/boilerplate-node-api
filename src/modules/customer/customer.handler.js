@@ -49,12 +49,26 @@ function customerHandler(service) {
       .send(updatedUser);
   }
 
+  async function login(req, reply) {
+    const { email, password } = req.body;
+    const userGetByMail = await service.login(email, password);
+    if (!userGetByMail) {
+      reply
+        .code(404)
+        .send('[CUSTOMER] DOESNT EXIST PLEASE SUBSCRIBE');
+    }
+    reply
+      .code(200)
+      .send(userGetByMail);
+  }
+
   return {
     getAll,
     sendFormatMessage,
     getById,
     create,
     update,
+    login,
   };
 }
 

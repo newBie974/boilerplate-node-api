@@ -5,7 +5,7 @@ function authService(repository, auth, jwt, bcrypt) {
     return upsertedData;
   }
   async function authentification(id, password) {
-    const credentials = await repository.authentification(id);
+    const credentials = await repository.getCredentials(id);
     if (!credentials) {
       return false;
     }

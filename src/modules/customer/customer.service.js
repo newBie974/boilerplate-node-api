@@ -24,8 +24,8 @@ function customerService(repository, authClient) {
       email,
       nickname,
     });
-    const authentification = await authClient.upsertCredentials(user.id, password);
-    return user;
+    const credentialsUpserted = await authClient.upsertCredentials(user.id, password);
+    return credentialsUpserted;
   }
 
   async function update(id, body) {
@@ -37,12 +37,23 @@ function customerService(repository, authClient) {
     const users = await repository.getAll();
     return users;
   }
+
+  async function login(email, password) {
+    const user = await repository.getCustomerByEmail(email);
+    if (!user) {
+      return false;
+    }
+    await authClient.authentification(user.id, password);
+    return true;
+  }
+
   return {
     formatMessage,
     getById,
     create,
     update,
     getAll,
+    login,
   };
 }
 

@@ -14,7 +14,8 @@ function authHandler(service) {
         .code(401);
     }
     reply
-      .code(200);
+      .code(200)
+      .send({ credentials });
   }
   return {
     upsertCredentials,

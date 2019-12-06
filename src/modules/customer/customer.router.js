@@ -18,12 +18,17 @@ function customerRouter(fastify, customerHandler) {
     fastify.put('/customer/:id', customerHandler.update);
   }
 
+  function login() {
+    fastify.post('/customer/login', customerHandler.login);
+  }
+
   return {
     create,
     getAll,
     getMessage,
     getById,
     update,
+    login,
   };
 }
 
