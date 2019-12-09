@@ -5,6 +5,7 @@ const authRouter = require('./router');
 
 function launch(routers) {
   routers.upsertCredentials();
+  routers.authentification();
 }
 
 function initModuleAuth({

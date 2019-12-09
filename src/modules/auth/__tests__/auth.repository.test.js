@@ -25,7 +25,7 @@ describe('Auth Repository', () => {
   test('should get crentedentials', async () => {
     await authRepository.upsertCredentials(id, password);
     const credentials = await authRepository.getCredentials(id);
-    expect(credentials.customerId).toBe(id);
+    expect(credentials.customerId).toBe(`${id}`);
     expect(credentials.password).toBe(password);
   });
 });

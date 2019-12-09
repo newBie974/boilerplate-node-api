@@ -13,7 +13,7 @@ describe('Auth Handler', () => {
   test('should upsertCredentials', async () => {
     const req = {
       body: {
-        id: 1,
+        customerId: 1,
         password: 'Coucou toi',
       },
     };

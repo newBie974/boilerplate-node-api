@@ -30,8 +30,20 @@ describe('Customer Service', () => {
       nickname: 'Nickname',
       email: 'john@doe.com',
     })),
+    getCustomerByEmail: jest.fn(() => ({
+      id: 1,
+      firstname: 'Doe',
+      lastname: 'Jahn',
+      nickname: 'Nickname',
+      email: 'john@doe.com',
+    })),
   };
-  const customerService = service(mockRepository);
+
+  const mockAuthClient = {
+    upsertCredentials: jest.fn(() => true),
+    authentification: jest.fn(() => true),
+  };
+  const customerService = service(mockRepository, mockAuthClient);
 
   test('should return hello John', () => {
     const messageToFormat = 'John';
@@ -77,13 +89,8 @@ describe('Customer Service', () => {
     };
     const user = await customerService.create(payload);
     expect(mockRepository.create).toHaveBeenCalledTimes(1);
-    expect(user).toMatchObject({
-      id: 1,
-      firstname: 'Doe',
-      lastname: 'John',
-      nickname: 'Nickname',
-      email: 'john@doe.com',
-    });
+    expect(mockAuthClient.upsertCredentials).toHaveBeenCalledTimes(1);
+    expect(user).toBe(true);
   });
 
   test('should update a customer', async () => {
@@ -102,5 +109,22 @@ describe('Customer Service', () => {
       nickname: 'Nickname',
       email: 'john@doe.com',
     });
+  });
+
+  test('should login', async () => {
+    const email = 'john@doe.com';
+    const password = 'johndoe';
+    await customerService.login(email, password);
+    expect(mockRepository.getCustomerByEmail).toHaveBeenCalledTimes(1);
+    expect(mockAuthClient.authentification).toHaveBeenCalledTimes(1);
+  });
+
+  test('shouldnt login', async () => {
+    mockRepository.getCustomerByEmail = jest.fn(() => false);
+    const email = 'john@doe.com';
+    const password = 'johndoe';
+    const login = await customerService.login(email, password);
+    expect(mockRepository.getCustomerByEmail).toHaveBeenCalledTimes(1);
+    expect(login).toBe(false);
   });
 });

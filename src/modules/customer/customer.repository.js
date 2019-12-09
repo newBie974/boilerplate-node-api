@@ -14,6 +14,7 @@ function customerRepository(database) {
 
   async function create(payload) {
     const {
+      id,
       firstname,
       lastname,
       nickname,
@@ -21,11 +22,11 @@ function customerRepository(database) {
     } = payload;
 
     const result = await database.query(`
-      INSERT INTO customer (firstname, lastname, email, nickname)
+      INSERT INTO customer (id, firstname, lastname, email, nickname)
       VALUES
-      ($1, $2, $3, $4)
+      ($1, $2, $3, $4, $5)
       RETURNING id, firstname, lastname, email, nickname
-    `, [firstname, lastname, email, nickname])
+    `, [id, firstname, lastname, email, nickname])
       .then((res) => res.rows[0]);
 
     return result;
@@ -52,11 +53,19 @@ function customerRepository(database) {
 
     return result;
   }
+
+  async function getCustomerByEmail(email) {
+    return database.query(
+      'SELECT id, nickname, email, firstname, lastname FROM customer WHERE email=$1 LIMIT 1',
+      [email],
+    ).then((res) => res.rows[0]);
+  }
   return {
     getAll,
     getCustomerById,
     create,
     update,
+    getCustomerByEmail,
   };
 }
 

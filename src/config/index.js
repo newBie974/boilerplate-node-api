@@ -19,8 +19,13 @@ const config = {
     max: env('POSTGRES_POOL_SIZE'),
     idleTimeoutMillis: env('POSTGRES_IDLETIMEOUTMILLIS'),
   },
-  auth: {
-    saltRounds: env('SALT_ROUNDS'),
+  authConfig: {
+    saltRounds: parseInt(env('SALT_ROUNDS'), 10),
+  },
+  clients: {
+    hostname: env('HOSTNAME'),
+    base: env('BASE'),
+    port: env('PORT'),
   },
 };
 
