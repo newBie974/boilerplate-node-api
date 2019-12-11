@@ -13,7 +13,7 @@ const Clients = require('../clients');
 
 async function server() {
   try {
-    const { authConfig, clients } = config;
+    const { authConfig, clients, jwtConfig } = config;
     const { authClient } = Clients({ superagent, clients });
 
     initModuleCustomer({ fastify, database, authClient });
@@ -23,6 +23,7 @@ async function server() {
       authConfig,
       jwt,
       bcrypt,
+      jwtConfig,
     });
     fastify.register(helmet);
     fastify.register(cors, {

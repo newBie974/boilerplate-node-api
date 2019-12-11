@@ -32,9 +32,23 @@ function AuthClient(superagent, clients) {
     }
   }
 
+  async function generateToken(customerId, email, nickname) {
+    try {
+      return superagent
+        .post(`${base}://${hostname}:${port}/auth/generate_token`)
+        .send({
+          customerId,
+          email,
+          nickname,
+        }).then((res) => res.body);
+    } catch (err) {
+      throw new Error(`[AUTH-CLIENT]-[CANNOT GENERATE TOKEN] ${err}`);
+    }
+  }
   return {
     upsertCredentials,
     authentification,
+    generateToken,
   };
 }
 

@@ -1,6 +1,8 @@
 # Dependency directories
 coverage
 node_modules/
+src/config/private.key
+src/config/public.key
 
 # MacOS
 .DS_Store
@@ -8,3 +10,4 @@ node_modules
 
 # Files
 .env.dev
+
