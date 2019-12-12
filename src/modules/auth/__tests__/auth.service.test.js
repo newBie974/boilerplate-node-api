@@ -14,9 +14,12 @@ describe('Auth Service', () => {
     compare: jest.fn(() => true),
   };
   const mockConfig = {};
-  const mockJwt = {};
+  const mockJwt = {
+    sign: jest.fn(() => true),
+  };
+  const mockJwtConfig = {};
 
-  const authService = service(mockRepository, mockConfig, mockJwt, mockBCrypt);
+  const authService = service(mockRepository, mockConfig, mockJwt, mockBCrypt, mockJwtConfig);
 
   test('should hashed password and save the credentials', async () => {
     const upsertCredentials = await authService.upsertCredentials(id, password);
@@ -48,5 +51,10 @@ describe('Auth Service', () => {
     expect(authentificate).toBe(false);
     expect(mockRepository.getCredentials).toHaveBeenCalledTimes(1);
     expect(mockBCrypt.compare).toHaveBeenCalledTimes(1);
+  });
+
+  test('should generate a token', () => {
+    authService.generateToken(1, 'john@do.fr', 'nickName');
+    expect(mockJwt.sign).toHaveBeenCalledTimes(1);
   });
 });
