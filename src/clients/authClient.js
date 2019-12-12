@@ -32,7 +32,7 @@ function AuthClient(superagent, clients) {
     }
   }
 
-  async function generateToken(customerId, email, nickname) {
+  function generateToken(customerId, email, nickname) {
     try {
       return superagent
         .post(`${base}://${hostname}:${port}/auth/generate_token`)

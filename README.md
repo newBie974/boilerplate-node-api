@@ -21,7 +21,11 @@ Module qui permet toutes les interactions customer
 coverage
 
 # Module Auth
-Module authentification qui contient les credentials
+Module authentification qui contient les credentials.
+Pour que cela fonctionne il faut générer deux fichiers, qui doivent être ajouté dans la config du microservice
+* private.key
+* public.key
+
 ## Depends on
 * [nothing]()
 ## Used by
