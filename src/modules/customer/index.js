@@ -1,7 +1,7 @@
-const customerRepository = require('./customer.repository');
-const customerService = require('./customer.service');
-const customerHandler = require('./customer.handler');
-const customerRouter = require('./customer.router');
+const customerRepository = require('./repository');
+const customerService = require('./service');
+const customerHandler = require('./handler');
+const customerRouter = require('./router');
 
 function launch(routers) {
   routers.getAll();

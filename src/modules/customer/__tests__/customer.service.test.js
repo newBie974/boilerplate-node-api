@@ -1,4 +1,4 @@
-const service = require('../customer.service');
+const service = require('../service');
 
 describe('Customer Service', () => {
   const mockRepository = {
