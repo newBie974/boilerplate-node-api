@@ -1,4 +1,4 @@
-const service = require('../customer.service');
+const service = require('../service');
 
 describe('Customer Service', () => {
   const mockRepository = {
@@ -42,6 +42,7 @@ describe('Customer Service', () => {
   const mockAuthClient = {
     upsertCredentials: jest.fn(() => true),
     authentification: jest.fn(() => true),
+    generateToken: jest.fn(() => true),
   };
   const customerService = service(mockRepository, mockAuthClient);
 
@@ -117,6 +118,7 @@ describe('Customer Service', () => {
     await customerService.login(email, password);
     expect(mockRepository.getCustomerByEmail).toHaveBeenCalledTimes(1);
     expect(mockAuthClient.authentification).toHaveBeenCalledTimes(1);
+    expect(mockAuthClient.generateToken).toHaveBeenCalledTimes(1);
   });
 
   test('shouldnt login', async () => {

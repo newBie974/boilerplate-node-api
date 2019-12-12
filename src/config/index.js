@@ -1,9 +1,15 @@
+const fs = require('fs');
+const path = require('path');
+
 require('dotenv-flow').config();
 
+const publicKey = fs.readFileSync(path.resolve(__dirname, './public.key').toString(), 'utf8');
+const privateKey = fs.readFileSync(path.resolve(__dirname, './private.key').toString(), 'utf8');
 const env = (name) => {
   if (process.env[name] === undefined) throw new Error(`Config error, env var ${name} not defined.`);
   return process.env[name];
 };
+
 
 const config = {
   app: {
@@ -26,6 +32,16 @@ const config = {
     hostname: env('HOSTNAME'),
     base: env('BASE'),
     port: env('PORT'),
+  },
+  jwtConfig: {
+    publicKey,
+    privateKey,
+    signOptions: {
+      issuer: 'Poumpoum Company',
+      audience: 'coucou',
+      expiresIn: '48h',
+      algorithm: 'RS256',
+    },
   },
 };
 

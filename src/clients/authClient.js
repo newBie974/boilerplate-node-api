@@ -18,23 +18,36 @@ function AuthClient(superagent, clients) {
     }
   }
 
-  async function authentification(customerId, password) {
+  function authentification(customerId, password) {
     try {
-      const login = await superagent
+      return superagent
         .post(`${base}://${hostname}:${port}/auth/token`)
         .send({
           customerId,
           password,
         });
-      return login;
     } catch (err) {
       throw new Error(`[AUTH-CLIENT]-[CANNOT AUTHENTIFICATION] ${err}`);
     }
   }
 
+  function generateToken(customerId, email, nickname) {
+    try {
+      return superagent
+        .post(`${base}://${hostname}:${port}/auth/generate_token`)
+        .send({
+          customerId,
+          email,
+          nickname,
+        }).then((res) => res.body);
+    } catch (err) {
+      throw new Error(`[AUTH-CLIENT]-[CANNOT GENERATE TOKEN] ${err}`);
+    }
+  }
   return {
     upsertCredentials,
     authentification,
+    generateToken,
   };
 }
 

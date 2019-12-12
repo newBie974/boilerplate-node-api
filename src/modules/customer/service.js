@@ -44,7 +44,8 @@ function customerService(repository, authClient) {
       return false;
     }
     await authClient.authentification(user.id, password);
-    return true;
+    const { token } = await authClient.generateToken(user.id, user.email, user.nickname);
+    return { token };
   }
 
   return {

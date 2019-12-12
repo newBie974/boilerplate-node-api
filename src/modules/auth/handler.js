@@ -17,9 +17,18 @@ function authHandler(service) {
       .code(200)
       .send({ credentials });
   }
+
+  function generateToken(req, reply) {
+    const { customerId, email, nickname } = req.body;
+    const token = service.generateToken(customerId, email, nickname);
+    reply
+      .code(200)
+      .send({ token });
+  }
   return {
     upsertCredentials,
     authentification,
+    generateToken,
   };
 }
 

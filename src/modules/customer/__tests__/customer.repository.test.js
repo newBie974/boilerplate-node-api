@@ -1,5 +1,5 @@
 const database = require('../../../database');
-const customerRepository = require('../customer.repository')(database);
+const customerRepository = require('../repository')(database);
 
 describe('Customer Repository', () => {
   test('Select a user by id 1', async () => {

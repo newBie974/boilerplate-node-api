@@ -4,6 +4,7 @@ describe('Auth Handler', () => {
   const mockServices = {
     upsertCredentials: jest.fn(() => 1),
     authentification: jest.fn(() => true),
+    generateToken: jest.fn(() => true),
   };
   const replyMock = {
     send: jest.fn().mockReturnThis(),
@@ -46,5 +47,18 @@ describe('Auth Handler', () => {
     await authHandler.authentification(req, replyMock);
     expect(mockServices.authentification).toHaveBeenCalledTimes(1);
     expect(replyMock.code).toHaveBeenCalledWith(401);
+  });
+
+  test('should generate token', () => {
+    const req = {
+      body: {
+        customerId: 1,
+        email: 'john@do.fr',
+        nickname: 'Nickname',
+      },
+    };
+    authHandler.generateToken(req, replyMock);
+    expect(mockServices.generateToken).toHaveBeenCalledTimes(1);
+    expect(replyMock.code).toHaveBeenCalledWith(200);
   });
 });

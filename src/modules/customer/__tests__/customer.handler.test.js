@@ -1,4 +1,4 @@
-const handler = require('../customer.handler');
+const handler = require('../handler');
 
 describe('Customer Handler', () => {
   const mockServices = {
