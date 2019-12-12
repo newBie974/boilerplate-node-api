@@ -18,15 +18,14 @@ function AuthClient(superagent, clients) {
     }
   }
 
-  async function authentification(customerId, password) {
+  function authentification(customerId, password) {
     try {
-      const login = await superagent
+      return superagent
         .post(`${base}://${hostname}:${port}/auth/token`)
         .send({
           customerId,
           password,
         });
-      return login;
     } catch (err) {
       throw new Error(`[AUTH-CLIENT]-[CANNOT AUTHENTIFICATION] ${err}`);
     }
