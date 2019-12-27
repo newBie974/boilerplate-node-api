@@ -7,7 +7,7 @@ function customerRepository(database) {
 
   function getCustomerById(id) {
     return database.query(
-      'SELECT id, nickname, email, firstname, lastname FROM customer WHERE id=$1::integer LIMIT 1',
+      'SELECT id, nickname, email, firstname, lastname FROM customer WHERE id=$1 LIMIT 1',
       [id],
     ).then((res) => res.rows[0]);
   }

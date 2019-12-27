@@ -1,4 +1,4 @@
-function customerService(repository, authClient) {
+function customerService(repository, authClient, nanoid) {
   function formatMessage(name) {
     const message = `Hello ${name}`;
     return { message };
@@ -9,7 +9,8 @@ function customerService(repository, authClient) {
   }
 
   async function create(body) {
-    const id = Date.now();
+    // here nanoid
+    const id = nanoid();
     const {
       password,
       firstname,
@@ -45,7 +46,7 @@ function customerService(repository, authClient) {
     }
     await authClient.authentification(user.id, password);
     const { token } = await authClient.generateToken(user.id, user.email, user.nickname);
-    return { token };
+    return { token, id: user.id };
   }
 
   return {

@@ -12,9 +12,14 @@ function launch(routers) {
   routers.login();
 }
 
-function initModuleCustomer({ fastify, database, authClient }) {
+function initModuleCustomer({
+  fastify,
+  database,
+  authClient,
+  nanoid,
+}) {
   const repository = customerRepository(database);
-  const services = customerService(repository, authClient);
+  const services = customerService(repository, authClient, nanoid);
   const handlers = customerHandler(services);
   const routers = customerRouter(fastify, handlers);
   launch(routers);

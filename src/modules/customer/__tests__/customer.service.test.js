@@ -44,7 +44,9 @@ describe('Customer Service', () => {
     authentification: jest.fn(() => true),
     generateToken: jest.fn(() => true),
   };
-  const customerService = service(mockRepository, mockAuthClient);
+
+  const nanoidMock = jest.fn(() => 1);
+  const customerService = service(mockRepository, mockAuthClient, nanoidMock);
 
   test('should return hello John', () => {
     const messageToFormat = 'John';

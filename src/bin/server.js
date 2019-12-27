@@ -4,6 +4,7 @@ const cors = require('fastify-cors');
 const superagent = require('superagent');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const nanoid = require('nanoid');
 const database = require('../database');
 const config = require('../config');
 
@@ -16,7 +17,12 @@ async function server() {
     const { authConfig, clients, jwtConfig } = config;
     const { authClient } = Clients({ superagent, clients });
 
-    initModuleCustomer({ fastify, database, authClient });
+    initModuleCustomer({
+      fastify,
+      database,
+      authClient,
+      nanoid,
+    });
     initModuleAuth({
       fastify,
       database,
@@ -27,7 +33,7 @@ async function server() {
     });
     fastify.register(helmet);
     fastify.register(cors, {
-      origin: 'http://localhost:8081',
+      origin: 'http://localhost:8080',
     });
     await fastify.listen(config.app.port || 3000);
     fastify.log.info(`server listening on ${fastify.server.address().port}`);
