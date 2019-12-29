@@ -33,11 +33,29 @@ function customerHandler(service) {
   }
 
   async function create(req, reply) {
-    const { body } = req;
-    const createdUser = await service.create(body);
-    reply
-      .code(201)
-      .send(createdUser);
+    const {
+      password,
+      firstname,
+      lastname,
+      email,
+      nickname,
+    } = req.body;
+    try {
+      const createdUser = await service.create({
+        password,
+        firstname,
+        lastname,
+        email,
+        nickname,
+      });
+      reply
+        .code(201)
+        .send(createdUser);
+    } catch (err) {
+      reply
+        .code(409)
+        .send(err);
+    }
   }
 
   async function update(req, reply) {

@@ -171,4 +171,23 @@ describe('Customer Handler', () => {
     expect(mockServices.login).toHaveBeenCalledTimes(1);
     expect(replyMock.code).toHaveBeenCalledWith(404);
   });
+
+  test('return 409; shouldnt create customer because it already exist', async () => {
+    mockServices.create = jest.fn(() => new Error('[CUSTOMER] already exist'));
+    const req = {
+      body: {
+        firstname: 'John',
+        lastname: 'Doe',
+        nickname: 'JohnDoe123',
+        email: 'john@doe.gmail.com',
+      },
+    };
+    try {
+      await customerHandler.create(req, replyMock);
+      expect(mockServices.create).toHaveBeenCalledTimes(1);
+    } catch (err) {
+      expect(replyMock.code).toHaveBeenCalledWith(409);
+      expect(replyMock.send).toHaveBeenCalledWith({ err: '[CUSTOMER] already exist' });
+    }
+  });
 });

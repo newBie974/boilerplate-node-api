@@ -1,34 +1,19 @@
 function customerRouter(fastify, customerHandler) {
-  function getAll() {
+  function start() {
+    /* **********[GET]********** */
     fastify.get('/customer/', customerHandler.getAll);
-  }
-  function getMessage() {
-    // fastify.get('/:name', customerHandler.sendFormatMessage);
-  }
-
-  function getById() {
     fastify.get('/customer/:id', customerHandler.getById);
-  }
-
-  function create() {
+    /* **********[GET]********** */
+    /* **********[POST]********** */
     fastify.post('/customer/', customerHandler.create);
-  }
-
-  function update() {
-    fastify.put('/customer/:id', customerHandler.update);
-  }
-
-  function login() {
     fastify.post('/customer/login', customerHandler.login);
+    /* **********[POST]********** */
+    /* **********[PUT]********** */
+    fastify.put('/customer/:id', customerHandler.update);
+    /* **********[PUT]********** */
   }
-
   return {
-    create,
-    getAll,
-    getMessage,
-    getById,
-    update,
-    login,
+    start,
   };
 }
 

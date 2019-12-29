@@ -1,23 +1,21 @@
 function customerService(repository, authClient, nanoid) {
-  function formatMessage(name) {
-    const message = `Hello ${name}`;
-    return { message };
-  }
   async function getById(id) {
     const user = await repository.getCustomerById(id);
     return user;
   }
 
-  async function create(body) {
-    // here nanoid
+  async function create({
+    password,
+    firstname,
+    lastname,
+    email,
+    nickname,
+  }) {
     const id = nanoid();
-    const {
-      password,
-      firstname,
-      lastname,
-      email,
-      nickname,
-    } = body;
+    const getCustomerByEmail = await repository.getCustomerByEmail(email);
+    if (getCustomerByEmail) {
+      throw new Error('[CUSTOMER] - email does exist');
+    }
     const user = await repository.create({
       id,
       firstname,
@@ -50,7 +48,6 @@ function customerService(repository, authClient, nanoid) {
   }
 
   return {
-    formatMessage,
     getById,
     create,
     update,

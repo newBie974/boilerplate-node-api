@@ -84,16 +84,38 @@ describe('Customer Service', () => {
   });
 
   test('should create a customer', async () => {
+    mockRepository.getCustomerByEmail = jest.fn(() => false);
+    // [TODO] be deplace
     const payload = {
       firstname: 'Doe',
       lastname: 'John',
       nickname: 'Nickname',
       email: 'john@doe.com',
     };
+    // [TODO] be deplace
     const user = await customerService.create(payload);
+    expect(mockRepository.getCustomerByEmail).toHaveBeenCalledTimes(1);
     expect(mockRepository.create).toHaveBeenCalledTimes(1);
     expect(mockAuthClient.upsertCredentials).toHaveBeenCalledTimes(1);
     expect(user).toBe(true);
+  });
+
+  test('shouldnt create a customer because one already exist', async () => {
+    mockRepository.getCustomerByEmail = jest.fn(() => true);
+    const payload = {
+      firstname: 'Doe',
+      lastname: 'John',
+      nickname: 'Nickname',
+      email: 'john@doe.com',
+    };
+    try {
+      await customerService.create(payload);
+      expect(mockRepository.getCustomerByEmail).toHaveBeenCalledTimes(1);
+    } catch (err) {
+      // [TODO] expect throw error check it
+      // How to test throwing error with jest
+      console.log('-------> ici', err);
+    }
   });
 
   test('should update a customer', async () => {
@@ -115,6 +137,7 @@ describe('Customer Service', () => {
   });
 
   test('should login', async () => {
+    mockRepository.getCustomerByEmail = jest.fn(() => true);
     const email = 'john@doe.com';
     const password = 'johndoe';
     await customerService.login(email, password);
