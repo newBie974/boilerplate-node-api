@@ -1,15 +1,20 @@
 const fastify = require('fastify')({ logger: true });
 const helmet = require('fastify-helmet');
 const cors = require('fastify-cors');
+const multipart = require('fastify-multipart');
 const superagent = require('superagent');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const nanoid = require('nanoid');
+const fs = require('fs');
+const pump = require('pump'); // should be removed
+
 const database = require('../database');
 const config = require('../config');
 
 const { initModuleCustomer } = require('../modules/customer');
 const { initModuleAuth } = require('../modules/auth');
+const { init: initModuleUpload } = require('../modules/upload');
 const Clients = require('../clients');
 
 async function server() {
@@ -31,7 +36,14 @@ async function server() {
       bcrypt,
       jwtConfig,
     });
+    initModuleUpload({
+      fastify,
+      fs,
+      pump,
+      authClient,
+    });
     fastify.register(helmet);
+    fastify.register(multipart);
     fastify.register(cors, {
       origin: 'http://localhost:8080',
     });
